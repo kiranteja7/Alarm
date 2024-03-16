@@ -1,0 +1,108 @@
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+  }
+
+
+
+.clock-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+  }
+  .clock {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 10px solid #333;
+    position: absolute;
+  }
+  .hour, .minute, .second {
+    position: relative;
+    height: 2px;
+    background-color: #333;
+    top: 49%;
+    transform-origin: 100%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hour {
+    z-index: 3;
+    width: 40%;
+    left: 9%;
+  }
+
+  .minute {
+    z-index: 2;
+    width: 47%;
+    left: 3%;
+  }
+  .second {
+    background-color: red;
+    z-index: 1;
+    width: 44%;
+    left: 6%;
+  }
+
+  .dot{
+      width: 15px;
+      height: 15px;
+      background-color: #333;
+      border-radius: 50%;
+      position: absolute;
+      top: 48%;
+      right: 47%;
+      z-index: 4;
+  }
+
+  .number {
+    position: absolute;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+
+  .form-group label {
+    color: #3498db; /* Form label color */
+    font-weight: bold;
+  }
+
+  .btn-primary {
+    background-color: #3498db !important; /* Set Alarm button color */
+    border-color: #3498db !important;
+  }
+
+  .btn-primary:hover {
+    background-color: #2980b9 !important; /* Set Alarm button hover color */
+    border-color: #2980b9 !important;
+  }
+
+  .btn-danger {
+    background-color: #e74c3c !important; /* Stop Alarm button color */
+    border-color: #e74c3c !important;
+  }
+
+  .btn-danger:hover {
+    background-color: #c0392b !important; /* Stop Alarm button hover color */
+    border-color: #c0392b !important;
+  }
+
+  .list-group-item {
+    background-color: #ffffff; /* Alarms list background color */
+    color: #333; /* Alarms list text color */
+    border-color: #3498db; /* Alarms list border color */
+  }
+
+  .current-time-box {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .current-time {
+    font-size: 20px;
+    margin-top: 10px;
+  }

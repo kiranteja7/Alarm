@@ -7,16 +7,28 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="../Alarm Clock/styles.css" />
   </head>
   <body>
     <div class="container mt-5">
       <h1 class="text-center mb-4">Alarm Clock</h1>
-      <div class="form-group">
+      <div
+        class="current-time-box"
+        style="background-color: #6c757d; padding: 10px; border-radius: 5px"
+      >
+        <div
+          class="current-time"
+          id="current-time"
+          style="font-size: 24px; color: white"
+        ></div>
+      </div>
+      <div class="form-group mt-4">
         <label for="alarm-time">Set Alarm Time:</label>
-        <input type="time" class="form-control" id="alarm-time" />
+        <input type="time" class="form-control" id="alarm-time" step="1" />
       </div>
       <button id="set-alarm" class="btn btn-primary">Set Alarm</button>
       <button id="stop-alarm" class="btn btn-danger d-none">Stop Alarm</button>
+      <ul id="alarms-list" class="list-group mt-4"></ul>
     </div>
 
     <script src="index.js"></script>
