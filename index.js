@@ -6,19 +6,20 @@ document.addEventListener('DOMContentLoaded', function() {
   let alarmIntervals = [];
   let alarms = JSON.parse(localStorage.getItem('alarms')) || [];
 
-
+  // Update the clock every second
   function updateClock() {
-    const now = new Date();
-    const currentTimeString = now.toLocaleTimeString();
-    // Display current time
-    currentTimeElement.textContent = currentTimeString;
-}
+      const now = new Date();
+      const currentTimeString = now.toLocaleTimeString();
 
-// Start the clock
-function startClock() {
-    setInterval(updateClock, 1000);
-    updateClock(); // Update immediately to avoid initial delay
-}
+      // Display current time
+      currentTimeElement.textContent = currentTimeString;
+  }
+
+  // Start the clock
+  function startClock() {
+      setInterval(updateClock, 1000);
+      updateClock(); // Update immediately to avoid initial delay
+  }
 
   // Set Alarm button click event
   setAlarmButton.addEventListener('click', function() {
@@ -48,10 +49,18 @@ function startClock() {
       deleteButton.textContent = 'Delete';
       deleteButton.classList.add('btn', 'btn-danger', 'btn-sm', 'float-right');
       deleteButton.addEventListener('click', function() {
-          alarmsList.removeChild(alarmListItem);
-          clearInterval(alarmIntervals[alarmsList.children.indexOf(alarmListItem)]);
-          alarms.splice(alarmsList.children.indexOf(alarmListItem), 1);
-          localStorage.setItem('alarms', JSON.stringify(alarms));
+          const index = alarms.indexOf(alarmDateTime.getTime());
+          if (index !== -1) {
+              alarms.splice(index, 1);
+              localStorage.setItem('alarms', JSON.stringify(alarms));
+
+              // Remove the alarm from the list
+              alarmsList.removeChild(alarmListItem);
+
+              // Clear the corresponding interval
+              clearInterval(alarmIntervals[index]);
+              alarmIntervals.splice(index, 1);
+          }
       });
       alarmListItem.appendChild(deleteButton);
 
@@ -59,9 +68,22 @@ function startClock() {
       alarmsList.appendChild(alarmListItem);
 
       // Schedule the alarm
-      const intervalId = setInterval(function() {
-          alert('Alarm!');
-          clearInterval(intervalId);
+      const intervalId = setTimeout(function() {
+          const index = alarms.indexOf(alarmDateTime.getTime());
+          if (index !== -1) {
+              alarms.splice(index, 1);
+              localStorage.setItem('alarms', JSON.stringify(alarms));
+
+              // Remove the alarm from the list
+              alarmsList.removeChild(alarmListItem);
+
+              // Clear the corresponding interval
+              clearInterval(alarmIntervals[index]);
+              alarmIntervals.splice(index, 1);
+
+              // Trigger the alarm only if it's still in the alarms list
+              alert('Alarm!');
+          }
       }, timeUntilAlarm);
 
       alarmIntervals.push(intervalId);
@@ -71,7 +93,7 @@ function startClock() {
 
   // Load saved alarms from local storage
   function loadAlarms() {
-      alarms.forEach(function(alarm) {
+      alarms.forEach(function(alarm, index) {
           const alarmDateTime = new Date(alarm);
           const now = new Date();
           const timeUntilAlarm = alarmDateTime.getTime() - now.getTime();
@@ -85,10 +107,18 @@ function startClock() {
               deleteButton.textContent = 'Delete';
               deleteButton.classList.add('btn', 'btn-danger', 'btn-sm', 'float-right');
               deleteButton.addEventListener('click', function() {
-                  alarmsList.removeChild(alarmListItem);
-                  clearInterval(alarmIntervals[alarmsList.children.indexOf(alarmListItem)]);
-                  alarms.splice(alarmsList.children.indexOf(alarmListItem), 1);
-                  localStorage.setItem('alarms', JSON.stringify(alarms));
+                  const index = alarms.indexOf(alarmDateTime.getTime());
+                  if (index !== -1) {
+                      alarms.splice(index, 1);
+                      localStorage.setItem('alarms', JSON.stringify(alarms));
+
+                      // Remove the alarm from the list
+                      alarmsList.removeChild(alarmListItem);
+
+                      // Clear the corresponding interval
+                      clearInterval(alarmIntervals[index]);
+                      alarmIntervals.splice(index, 1);
+                  }
               });
               alarmListItem.appendChild(deleteButton);
 
@@ -96,9 +126,22 @@ function startClock() {
               alarmsList.appendChild(alarmListItem);
 
               // Schedule the alarm
-              const intervalId = setInterval(function() {
-                  alert('Alarm!');
-                  clearInterval(intervalId);
+              const intervalId = setTimeout(function() {
+                  const index = alarms.indexOf(alarmDateTime.getTime());
+                  if (index !== -1) {
+                      alarms.splice(index, 1);
+                      localStorage.setItem('alarms', JSON.stringify(alarms));
+
+                      // Remove the alarm from the list
+                      alarmsList.removeChild(alarmListItem);
+
+                      // Clear the corresponding interval
+                      clearInterval(alarmIntervals[index]);
+                      alarmIntervals.splice(index, 1);
+
+                      // Trigger the alarm only if it's still in the alarms list
+                      alert('Alarm!');
+                  }
               }, timeUntilAlarm);
 
               alarmIntervals.push(intervalId);
